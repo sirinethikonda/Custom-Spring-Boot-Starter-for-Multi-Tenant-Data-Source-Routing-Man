@@ -1,0 +1,37 @@
+multitenancy:
+  enabled: true
+  tenants:
+    - id: tenant1
+      url: jdbc:mysql://db:5432/tenant1_db?createDatabaseIfNotExist=true
+      username: ${SPRING_DATASOURCE_USERNAME:root}
+      password: ${SPRING_DATASOURCE_PASSWORD:password}
+    - id: tenant2
+      url: jdbc:mysql://db:5432/tenant2_db?createDatabaseIfNotExist=true
+      username: ${SPRING_DATASOURCE_USERNAME:root}
+      password: ${SPRING_DATASOURCE_PASSWORD:password}
+    - id: tenant3
+      url: jdbc:mysql://db:5432/tenant3_db?createDatabaseIfNotExist=true
+      username: ${SPRING_DATASOURCE_USERNAME:root}
+      password: ${SPRING_DATASOURCE_PASSWORD:password}
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    show-sql: true
+  application:
+    name: demo-application
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+    datasources:
+      enabled: true
